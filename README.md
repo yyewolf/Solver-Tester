@@ -1,7 +1,7 @@
 # Wordle Solver Tester
 ## Pourquoi ?
 
-Le project du deuxième semestre pour les premières années de la promotion 2024 à Telecom NANCY était le suivant : Refaire le jeu "Wordle" (WEB) ainsi qu'un Solveur pour ce jeu (en C). L'équipe nous à aussi dit qu'ils comptaient tester nos solveur sans nous donner le "comment ?".
+Le project du deuxième semestre pour les premières années de la promotion 2024 à Telecom NANCY était le suivant : Refaire le jeu "Wordle" (WEB) ainsi qu'un Solveur pour ce jeu (en C). L'équipe nous à aussi dit qu'ils comptaient tester nos solveur sans nous donner le "comment ?". En tant que président du club Algo, je me devais d'aider ma promo ! [*tousse*](https://discord.gg/MYKJgcCZXZ)
 
 ## Protocole
 
@@ -27,7 +27,7 @@ Vous pouvez trouver dans ce repo un faux solveur (même pas en C), il sert juste
 ## Utilisation
 
 Il vaut mieux utiliser ce solveur sur Linux plutôt que sur Windows.
-Vous pouvez voir les arguments de la ligne de commande en faisant : `wordle_tester -h`
+Vous pouvez voir les arguments de la ligne de commande en faisant : `wordle_tester -h`.
 Pour lancer une partie simple après avoir cloner ce repo (et avoir mis votre executable dans le bon dossier) : `wordle_tester -dictionary dictionary/dict.txt -games 5 -size 5`
 
 ## Installation
