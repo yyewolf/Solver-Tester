@@ -6,7 +6,6 @@ import (
 	"io"
 	"os/exec"
 	"sync"
-	"syscall"
 	"time"
 
 	"github.com/fatih/color"
@@ -19,9 +18,6 @@ func startExecutable(executable string) (*exec.Cmd, io.WriteCloser, *bufio.Scann
 	si, err := c.StdinPipe()
 	if err != nil {
 		panic(err)
-	}
-	c.SysProcAttr = &syscall.SysProcAttr{
-		Pdeathsig: syscall.SIGKILL,
 	}
 
 	so, err := c.StdoutPipe()
