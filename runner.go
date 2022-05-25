@@ -6,18 +6,23 @@ import (
 	"io"
 	"os/exec"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/fatih/color"
+	"github.com/schollz/progressbar/v3"
 )
 
 // Juste pour simplifier
-func startExecutable(executable string) (*exec.Cmd, io.WriteCloser, *bufio.Scanner) {
-	c := exec.Command("./" + executable)
+func startExecutable(executable string, size int) (*exec.Cmd, io.WriteCloser, *bufio.Scanner) {
+	c := exec.Command("stdbuf", "-oL", fmt.Sprintf("./%s", executable), fmt.Sprintf("%d", size))
 
 	si, err := c.StdinPipe()
 	if err != nil {
 		panic(err)
+	}
+	c.SysProcAttr = &syscall.SysProcAttr{
+		Pdeathsig: syscall.SIGKILL,
 	}
 
 	so, err := c.StdoutPipe()
@@ -41,17 +46,19 @@ func runGame(executable string, n int) {
 
 	var wg sync.WaitGroup
 
+	bar := progressbar.New(n)
 	for i := 0; i < n; i++ {
+		bar.Add(1)
 		if i%1000 == 0 {
 			wg.Wait()
 		}
 		wg.Add(1)
 		go func(i int) {
-			cmd, stdin, stdout := startExecutable(executable)
 			game, err := CreateWordle(counter)
 			if err != nil {
 				panic(err)
 			}
+			cmd, stdin, stdout := startExecutable(executable, len(game.Word))
 			//fmt.Printf("		Starting game %d (%s) : ", i+1, game.Word)
 			win, err := game.GameLoop(stdin, stdout)
 			if err != nil {
@@ -68,8 +75,9 @@ func runGame(executable string, n int) {
 			wg.Done()
 			cmd.Wait()
 		}(i)
+		time.Sleep(time.Millisecond * 100)
 	}
-	fmt.Println("		All games are running")
+	fmt.Println("\n		All games are running")
 	wg.Wait()
 	fmt.Printf("	%dW / %dL (%fT | %v/guess)\n", counter.WinCount, counter.Total-counter.WinCount, counter.AverageTry, time.Duration(counter.AverageTime))
 	fmt.Println()

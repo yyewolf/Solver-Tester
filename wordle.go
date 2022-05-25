@@ -116,7 +116,8 @@ func (w *Wordle) GameLoop(stdin io.WriteCloser, stdout *bufio.Scanner) (win bool
 	for finished, _ := w.IsFinished(); !finished; {
 		start := time.Now()
 
-		stdout.Scan() // On attend une réponse
+		stdout.Scan()
+
 		input := stdout.Text()
 
 		// On calcul le temps écoulé
