@@ -1,11 +1,15 @@
 # Wordle Solver Tester
+## Important
+
+Les fichiers executables que vous voulez tester ne doivent pas utiliser l'address sanitizer, il faut enlever le flag `-fsanitize=address`.
+
 ## Pourquoi ?
 
 Le project du deuxième semestre pour les premières années de la promotion 2024 à Telecom NANCY était le suivant : Refaire le jeu "Wordle" (WEB) ainsi qu'un Solveur pour ce jeu (en C). L'équipe nous à aussi dit qu'ils comptaient tester nos solveur sans nous donner le "comment ?". En tant que président du club Algo, je me devais d'aider ma promo ! [*tousse*](https://discord.gg/MYKJgcCZXZ)
 
 ## Protocole
 
-Pour rappel : la stdin du solver correspond à l'entrée du logiciel (`scanf` l'utilise), et la stdout correspond à la sortie (`printf`).
+Pour rappel : la stdin du solver correspond à l'entrée du logiciel (`scanf` et `fgets` l'utilise), et la stdout correspond à la sortie (`printf`).
 Voici un exemple de partie dont la taille de la solution est 5 : 
 
 - `stdout` : `crane` (il ne faut pas mettre d'accents)
